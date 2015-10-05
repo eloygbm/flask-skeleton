@@ -1,0 +1,71 @@
+---
+
+- hosts: localhost
+  gather_facts: False
+  connection: local
+
+  vars_files:
+  - conf/config.yml
+
+  vars_prompt:
+    - name: "project_name"
+      prompt: "What is the project name?"
+      private: no
+      default: "MyProject"
+
+  tasks:
+
+    - name: Create paths 
+      file: path={{projects_path}}/{{project_name}}/{{item}} state='directory'
+      with_items:
+        - "logs"
+        - "db"
+        - "{{project_name}}/scripts"
+        - "{{project_name}}/templates"
+
+    - name: Create settings file
+      template: src=./templates/settings.j2  dest={{projects_path}}/{{project_name}}/settings.py
+
+    - name: Create settings_sample file
+      template: src=./templates/settings.j2  dest={{projects_path}}/{{project_name}}/settings_sample.py
+
+    - name: Create run file
+      template: src=./templates/run.j2  dest={{projects_path}}/{{project_name}}/run.py
+
+    - name: Create db utils file
+      template: src=./templates/db.j2  dest={{projects_path}}/{{project_name}}/{{project_name}}/db.py
+
+    - name: Create main file
+      template: src=./templates/main.j2  dest={{projects_path}}/{{project_name}}/{{project_name}}/main.py
+
+    - name: Create init file
+      template: src=./templates/init.j2  dest={{projects_path}}/{{project_name}}/{{project_name}}/__init__.py
+
+    - name: Create the scheme sample file
+      template: src=./templates/schema_sql.j2  dest={{projects_path}}/{{project_name}}/{{project_name}}/scripts/schema.sql
+
+    - name: Create Virtualenv
+      command: virtualenv {{virtualenvs_path}}/{{project_name}}
+
+    - name: Pip install dependencies
+      pip: name={{ item }} virtualenv={{virtualenvs_path}}/{{project_name}}
+      with_items:
+        - flask
+
+    - name: Git init
+      shell: git init {{projects_path}}/{{project_name}}
+
+    - name: Configure .gitignore global
+      template: src=./templates/gitignore_global.j2  dest={{projects_path}}/{{project_name}}/.gitignore
+
+    - name: Configure .gitignore for empty directories
+      template: src=./templates/gitignore_empty.j2  dest={{projects_path}}/{{project_name}}/{{item}}/.gitignore
+      with_items:
+        - logs
+        - db
+
+    - name: Start here
+      debug: msg="source {{virtualenvs_path}}/{{project_name}}/bin/activate
+        && cd {{projects_path}}/{{project_name}}
+        && pip freeze > requirements.txt
+        && python run.py"
