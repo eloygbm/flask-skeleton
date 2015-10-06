@@ -29,8 +29,8 @@
     - name: Create settings_sample file
       template: src=./templates/settings.j2  dest={{projects_path}}/{{project_name}}/settings_sample.py
 
-    - name: Create run file
-      template: src=./templates/run.j2  dest={{projects_path}}/{{project_name}}/run.py
+    - name: Create manage file
+      template: src=./templates/manage.j2  dest={{projects_path}}/{{project_name}}/manage.py
 
     - name: Create db utils file
       template: src=./templates/db.j2  dest={{projects_path}}/{{project_name}}/{{project_name}}/db.py
@@ -51,6 +51,7 @@
       pip: name={{ item }} virtualenv={{virtualenvs_path}}/{{project_name}}
       with_items:
         - flask
+        - Flask-Script
 
     - name: Git init
       shell: git init {{projects_path}}/{{project_name}}
@@ -68,4 +69,5 @@
       debug: msg="source {{virtualenvs_path}}/{{project_name}}/bin/activate
         && cd {{projects_path}}/{{project_name}}
         && pip freeze > requirements.txt
-        && python run.py"
+        && python manage.py init_db
+        && python manage.py runserver"

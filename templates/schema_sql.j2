@@ -1,17 +1,17 @@
 -- SQL setup
 
--- CREATE TABLE IF NOT EXISTS survey (
---   id INTEGER PRIMARY KEY AUTOINCREMENT,
---   name TEXT NOT NULL,
---   author VARCHAR(100) NOT NULL,
---   options TEXT NOT NULL
+-- CREATE TABLE IF NOT EXISTS table1 (
+--   id INTEGER PRIMARY KEY NOT NULL AUTOINCREMENT,
+--   field1 TEXT NOT NULL,
+--   field2 VARCHAR(100) NOT NULL,
+--   field3 TEXT NOT NULL
 -- );
 
--- CREATE TABLE IF NOT EXISTS vote (
+-- CREATE TABLE IF NOT EXISTS table2 (
 --   id INTEGER PRIMARY KEY NOT NULL AUTOINCREMENT,
---   survey_id INTEGER,
---   user VARCHAR(100) NOT NULL,
---   option TEXT NOT NULL,
---   FOREIGN KEY (survey_id) REFERENCES survey(id)
+--   table1_id INTEGER,
+--   field1 VARCHAR(100) NOT NULL,
+--   field2 TEXT NOT NULL,
+--   FOREIGN KEY (table1_id) REFERENCES table1(id)
 -- );
 
