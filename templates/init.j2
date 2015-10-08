@@ -15,4 +15,5 @@ FILE_HANDLER.setLevel(logging.INFO)
 FILE_HANDLER.setFormatter(Formatter('%(asctime)s %(levelname)s: %(message)s ''[in %(pathname)s:%(lineno)d]'))
 app.logger.addHandler(FILE_HANDLER)
 
+# import the .py wich URL endpoints
 import {{ project_name }}.main
