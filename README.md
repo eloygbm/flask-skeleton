@@ -1,4 +1,6 @@
 
+[![ License ](https://img.shields.io/badge/license-Apache v2-blue.svg)](LICENSE)
+
 # flask-skeleton
 
 Ansible playbook to generate a Flask project skeleton
