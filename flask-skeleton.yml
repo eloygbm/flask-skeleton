@@ -32,6 +32,12 @@
     - name: Create manage file
       template: src=./templates/manage.j2  dest={{projects_path}}/{{project_name}}/manage.py
 
+    - name: Create start script
+      template: src=./templates/start.j2  mode="0775" dest={{projects_path}}/{{project_name}}/start.sh
+
+    - name: Create stop script
+      template: src=./templates/stop.j2  mode="0775" dest={{projects_path}}/{{project_name}}/stop.sh
+
     - name: Create db utils file
       template: src=./templates/db.j2  dest={{projects_path}}/{{project_name}}/{{project_name}}/db.py
 
@@ -52,6 +58,7 @@
       with_items:
         - flask
         - Flask-Script
+        - gunicorn
 
     - name: Git init
       shell: git init {{projects_path}}/{{project_name}}
