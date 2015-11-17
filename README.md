@@ -23,6 +23,15 @@ and the python developer's tools:
 
 it will prompt about your project name.
 
+## Config
+
+Setup `config/config.yml` paths
+
+```
+projects_path: "~/projects"
+virtualenvs_path: "~/virtualenvs"
+```
+
 ## Basic structure
 
 ```
@@ -42,5 +51,5 @@ it will prompt about your project name.
 ├── run.py
 └── settings.py
 
-5 directories, 6 files
+5 directories, 9 files
 ```
