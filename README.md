@@ -1,5 +1,5 @@
 
-[![ License ](https://img.shields.io/badge/license-Apache v2-blue.svg)](LICENSE)
+[![ License ](https://img.shields.io/badge/license-Apache%20v2-blue.svg)](LICENSE)
 
 # flask-skeleton
 
